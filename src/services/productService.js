@@ -15,6 +15,18 @@ const findProducts = async (id) => {
   };
 };
 
+const registerProduct = async (newProduct) => {
+  const product = { type: null };
+  try {
+    const id = await productModel.createProduct(newProduct);
+    product.content = await productModel.readProductById(id);
+  } catch (err) {
+    return { type: 'INTERNAL_ERROR', message: `Internal error${err.message}` };
+  }
+  if (product.content) return product;
+};
+
 module.exports = {
   findProducts,
+  registerProduct,
 };
