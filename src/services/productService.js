@@ -21,7 +21,7 @@ const registerProduct = async (newProduct) => {
     const id = await productModel.createProduct(newProduct);
     product.content = await productModel.readProductById(id);
   } catch (err) {
-    return { type: 'INTERNAL_ERROR', message: `Internal error${err.message}` };
+    return { type: 'INTERNAL_ERROR', message: 'Internal error' };
   }
   if (product.content) return product;
 };
