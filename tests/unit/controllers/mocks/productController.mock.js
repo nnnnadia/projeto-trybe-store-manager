@@ -15,6 +15,19 @@ const productsFromDB = [
   ],
 ];
 
+const insertIdFromDB = [{ insertId: 42 }];
+
+const newlyCreatedProductFromDB = [
+  [
+    {
+      id: 42,
+      name: 'produto incrível',
+    }
+  ]
+];
+
 module.exports = {
   productsFromDB,
+  insertIdFromDB,
+  newlyCreatedProductFromDB,
 };
