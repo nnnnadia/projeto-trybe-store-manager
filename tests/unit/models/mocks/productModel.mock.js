@@ -15,6 +15,9 @@ const productsFromDB = [
   ],
 ];
 
+const insertIdFromDB = [{ insertId: 42 }];
+
 module.exports = {
   productsFromDB,
+  insertIdFromDB,
 };
