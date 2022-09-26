@@ -12,7 +12,7 @@ const registerSale = async (sales) => {
     };
     return { type: null, content: sale };
   } catch (err) {
-    return { type: 'INTERNAL_ERROR', message: err.message };
+    return { type: 'INTERNAL_ERROR', message: 'Internal error' };
   }
 };
 
