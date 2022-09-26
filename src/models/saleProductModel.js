@@ -8,13 +8,11 @@ const readSaleProductBySaleId = async (saleId) => {
   return result;
 };
 
-const createSaleProduct = async ({ productId, quantity }, saleId) => {
-  const [{ insertId }] = await connection.execute(
+const createSaleProduct = async ({ productId, quantity }, saleId) => connection
+  .execute(
     'INSERT INTO sales_products (product_id, quantity, sale_id) VALUE (?, ?, ?)',
     [productId, quantity, saleId],
   );
-  return insertId;
-};
 
 module.exports = {
   createSaleProduct,
