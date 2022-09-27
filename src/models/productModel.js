@@ -1,18 +1,5 @@
 const connection = require('./connection');
 
-const readAllProducts = async () => {
-  const [result] = await connection.execute('SELECT * FROM products');
-  return result;
-};
-
-const readProductById = async (id) => {
-  const [[result]] = await connection.execute(
-    'SELECT * FROM products WHERE id = ?',
-    [id],
-  );
-  return result;
-};
-
 const createProduct = async (product) => {
   const columns = Object.keys(product)
     .map((key) => `${key}`)
@@ -27,8 +14,32 @@ const createProduct = async (product) => {
   return insertId;
 };
 
+const readAllProducts = async () => {
+  const [result] = await connection.execute('SELECT * FROM products');
+  return result;
+};
+
+const readProductById = async (id) => {
+  const [[result]] = await connection.execute(
+    'SELECT * FROM products WHERE id = ?',
+    [id],
+  );
+  return result;
+};
+
+const updateProduct = async (id, name) => {
+  const [{ affectedRows }] = await connection.execute(
+    `UPDATE products
+    SET name = ?
+    WHERE id = ?`,
+    [name, id],
+  );
+  return affectedRows;
+};
+
 module.exports = {
+  createProduct,
   readAllProducts,
   readProductById,
-  createProduct,
+  updateProduct,
 };
