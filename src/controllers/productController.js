@@ -14,7 +14,16 @@ const postProduct = async (req, res, next) => {
   next(result);
 };
 
+const putProduct = async (req, res, next) => {
+  const { id } = req.params;
+  const product = req.body;
+  const result = await productService.changeProduct(id, product);
+  if (!result.type) return res.status(200).json(result.content);
+  next(result);
+};
+
 module.exports = {
   getProducts,
   postProduct,
+  putProduct,
 };
