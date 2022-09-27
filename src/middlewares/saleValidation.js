@@ -1,4 +1,11 @@
-const { saleSchema } = require('./validations/saleSchema');
+const { idSchema, saleSchema } = require('./validations/saleSchema');
+
+const idValidation = (req, _res, next) => {
+  const { id } = req.params;
+  const { error } = idSchema.validate(id);
+  if (error) next({ type: 'INVALID_VALUE', message: 'Invalid value' });
+  next();
+};
 
 const saleValidation = (req, _res, next) => {
   const sales = req.body;
@@ -11,5 +18,6 @@ const saleValidation = (req, _res, next) => {
 };
 
 module.exports = {
+  idValidation,
   saleValidation,
 };
