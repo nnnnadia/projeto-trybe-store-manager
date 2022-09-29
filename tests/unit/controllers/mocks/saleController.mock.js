@@ -20,7 +20,6 @@ const resultFromSS = {
 };
 
 module.exports = {
-  insertIdFromDB,
   saleProductsFromBody,
   registeredSale,
   resultFromSS,
