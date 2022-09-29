@@ -1,4 +1,4 @@
-const { saleModel } = require('../models');
+const { saleModel, saleProductModel } = require('../models');
 const saleProductService = require('./saleProductService');
 
 const findSales = async (id) => {
@@ -33,7 +33,21 @@ const registerSale = async (sales) => {
   }
 };
 
+const removeSale = async (saleId) => {
+  try {
+    if (await saleModel.readSaleById(saleId)) {
+      await saleProductModel.deleteSaleProduct(saleId);
+      await saleModel.deleteSale(saleId);
+      return { type: null };
+    }
+    return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+  } catch (err) {
+    return { type: 'INTERNAL_ERROR', message: 'Internal error' };
+  }
+};
+
 module.exports = {
   findSales,
   registerSale,
+  removeSale,
 };
