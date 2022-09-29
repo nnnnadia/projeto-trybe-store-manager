@@ -18,4 +18,10 @@ router.post(
   saleController.postSale,
 );
 
+router.delete(
+  '/:id',
+  saleValidation.idValidation,
+  saleController.deleteSale,
+);
+
 module.exports = router;
