@@ -17,7 +17,10 @@ const productsFromDB = [
 
 const insertIdFromDB = [{ insertId: 42 }];
 
+const affectedRowsFromDB = [{ affectedRows: 1 }];
+
 module.exports = {
-  productsFromDB,
+  affectedRowsFromDB,
   insertIdFromDB,
+  productsFromDB,
 };

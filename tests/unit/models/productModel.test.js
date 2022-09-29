@@ -4,9 +4,20 @@ const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const { productModel } = require('../../../src/models');
 
-const { productsFromDB, insertIdFromDB } = require('./mocks/productModel.mock');
+const {
+  affectedRowsFromDB,
+  insertIdFromDB,
+  productsFromDB,
+} = require('./mocks/productModel.mock');
 
 describe('Teste de unidade do productModel', function () {
+  describe('.createProduct: ', function () {
+    it('Cria um novo produto com o createProduct', async function () {
+      sinon.stub(connection, 'execute').resolves(insertIdFromDB);
+      const result = await productModel.createProduct({ name: 'produto' });
+      expect(result).to.be.equal(42);
+    });
+  });
   describe('.readAllProducts: ', function () {
     it('Realizando leitura de dados com o readAllProducts', async function () {
       sinon.stub(connection, 'execute').resolves(productsFromDB);
@@ -21,11 +32,11 @@ describe('Teste de unidade do productModel', function () {
       expect(result).to.be.deep.equals(...productsFromDB[0]);
     });
   });
-  describe('.createProduct: ', function () {
-    it('Cria um novo produto com o createProduct', async function () {
-      sinon.stub(connection, 'execute').resolves(insertIdFromDB);
-      const result = await productModel.createProduct({ name: 'produto' });
-      expect(result).to.be.equal(42);
+  describe('.updateProduct: ', function () {
+    it('Atualizando um produto', async function () {
+      sinon.stub(connection, 'execute').resolves(affectedRowsFromDB);
+      const result = await productModel.updateProduct(1);
+      expect(result).to.be.equals(1);
     });
   });
   afterEach(sinon.restore);
