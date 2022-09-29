@@ -4,6 +4,13 @@ const { saleValidation, saleProductValidation } = require('../middlewares');
 
 const router = express.Router();
 
+router.post(
+  '/',
+  saleValidation.saleValidation,
+  saleProductValidation.saleProductValidation,
+  saleController.postSale,
+);
+
 router.get('/', saleController.getSales);
 router.get(
   '/:id',
@@ -11,11 +18,12 @@ router.get(
   saleController.getSales,
 );
 
-router.post(
-  '/',
+router.put(
+  '/:id',
+  saleValidation.idValidation,
   saleValidation.saleValidation,
   saleProductValidation.saleProductValidation,
-  saleController.postSale,
+  saleController.putSale,
 );
 
 router.delete(
