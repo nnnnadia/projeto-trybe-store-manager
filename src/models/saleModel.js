@@ -10,6 +10,14 @@ const readAllSales = async () => {
   return result;
 };
 
+const readSaleById = async (saleId) => {
+  const [[result]] = await connection.execute(
+    'SELECT * FROM sales WHERE id = ?',
+    [saleId],
+  );
+  return result;
+};
+
 const readSaleProductBySaleIdDated = async (saleId) => {
   const [result] = await connection.execute(
     `SELECT date, product_id AS productId, quantity
@@ -27,8 +35,16 @@ const createSale = async (date) => {
   return insertId;
 };
 
+const deleteSale = async (saleId) => connection
+  .execute(
+    'DELETE FROM sales WHERE id = ?',
+    [saleId],
+  );
+
 module.exports = {
   createSale,
+  deleteSale,
   readAllSales,
+  readSaleById,
   readSaleProductBySaleIdDated,
 };
