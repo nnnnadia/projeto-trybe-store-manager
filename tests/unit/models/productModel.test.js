@@ -39,5 +39,12 @@ describe('Teste de unidade do productModel', function () {
       expect(result).to.be.equals(1);
     });
   });
+  describe('.deleteProduct: ', function () {
+    it('Deletando um produto', async function () {
+      sinon.stub(connection, 'execute').resolves(affectedRowsFromDB);
+      const result = await productModel.deleteProduct(1);
+      expect(result).to.be.equals(1);
+    });
+  });
   afterEach(sinon.restore);
 });
