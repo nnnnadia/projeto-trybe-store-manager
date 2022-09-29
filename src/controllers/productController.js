@@ -22,7 +22,15 @@ const putProduct = async (req, res, next) => {
   next(result);
 };
 
+const deleteProduct = async (req, res, next) => {
+  const { id } = req.params;
+  const result = await productService.removeProduct(id);
+  if (!result.type) return res.status(204).json({});
+  next(result);
+};
+
 module.exports = {
+  deleteProduct,
   getProducts,
   postProduct,
   putProduct,
