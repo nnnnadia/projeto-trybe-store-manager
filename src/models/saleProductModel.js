@@ -14,7 +14,14 @@ const createSaleProduct = async ({ productId, quantity }, saleId) => connection
     [productId, quantity, saleId],
   );
 
+const deleteSaleProduct = async (saleId) => connection
+  .execute(
+    'DELETE FROM sales_products WHERE sale_id = ?',
+    [saleId],
+  );
+
 module.exports = {
   createSaleProduct,
+  deleteSaleProduct,
   readSaleProductBySaleId,
 };
