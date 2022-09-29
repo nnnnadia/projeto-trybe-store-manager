@@ -37,9 +37,19 @@ const updateProduct = async (id, name) => {
   return affectedRows;
 };
 
+const deleteProduct = async (id) => {
+  const [{ affectedRows }] = await connection.execute(
+    `DELETE FROM products
+    WHERE ID = ?`,
+    [id],
+  );
+  return affectedRows;
+};
+
 module.exports = {
   createProduct,
   readAllProducts,
   readProductById,
   updateProduct,
+  deleteProduct,
 };
