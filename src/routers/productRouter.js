@@ -24,4 +24,10 @@ router.put(
   productController.putProduct,
 );
 
+router.delete(
+  '/:id',
+  productValidation.idValidation,
+  productController.deleteProduct,
+);
+
 module.exports = router;
