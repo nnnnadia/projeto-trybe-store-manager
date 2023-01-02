@@ -4,12 +4,13 @@ const { productValidation } = require('../middlewares');
 
 const router = express.Router();
 
-router.get('/', productController.getProducts);
+router.get('/search', productController.getProductsByName);
 router.get(
   '/:id',
   productValidation.idValidation,
   productController.getProducts,
 );
+router.get('/', productController.getProducts);
 
 router.post(
   '/',
