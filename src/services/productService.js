@@ -28,6 +28,21 @@ const findProducts = async (id) => {
   }
 };
 
+const findProductsByQuery = async (query) => {
+  try {
+    const products = {
+      type: null,
+      content: !query
+        ? await productModel.readAllProducts()
+        : await productModel.readProductByQuery(query),
+    };
+    if (products.content) return products;
+    return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+  } catch (err) {
+    return { type: 'INTERNAL_ERROR', message: err.message };
+  }
+};
+
 const changeProduct = async (id, { name }) => {
   try {
     if (await productModel.updateProduct(id, name)) {
@@ -54,6 +69,7 @@ const removeProduct = async (id) => {
 module.exports = {
   changeProduct,
   findProducts,
+  findProductsByQuery,
   registerProduct,
   removeProduct,
 };
