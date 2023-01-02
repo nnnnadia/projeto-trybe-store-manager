@@ -27,6 +27,15 @@ const readProductById = async (id) => {
   return result;
 };
 
+const readProductByQuery = async (query) => {
+  const queryBetween = `%${query}%`;
+  const [result] = await connection.execute(
+    'SELECT * FROM products WHERE name LIKE ?',
+    [queryBetween],
+  );
+  return result;
+};
+
 const updateProduct = async (id, name) => {
   const [{ affectedRows }] = await connection.execute(
     `UPDATE products
@@ -50,6 +59,7 @@ module.exports = {
   createProduct,
   readAllProducts,
   readProductById,
+  readProductByQuery,
   updateProduct,
   deleteProduct,
 };
