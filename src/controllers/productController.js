@@ -7,6 +7,13 @@ const getProducts = async (req, res, next) => {
   next(result);
 };
 
+const getProductsByName = async (req, res, next) => {
+  const { q } = req.query;
+  const result = await productService.findProductsByQuery(q);
+  if (!result.type) return res.status(200).json(result.content);
+  next(result);
+};
+
 const postProduct = async (req, res, next) => {
   const product = req.body;
   const result = await productService.registerProduct(product);
@@ -32,6 +39,7 @@ const deleteProduct = async (req, res, next) => {
 module.exports = {
   deleteProduct,
   getProducts,
+  getProductsByName,
   postProduct,
   putProduct,
 };
